@@ -1,0 +1,48 @@
+<apex:page>
+
+    <apex:includeLightning />
+
+    <h2>stdin: </h2><br/>
+    <div class="stdin">ruff</div>
+    <br/>
+
+    <h2>stdout: </h2><br/>
+    <div class="stdout"></div>
+    <br/>
+
+    <div id="containerForLWC"></div>
+
+    <script>
+
+        const element = document.querySelector('.stdin')
+        
+        const stdin = element.textContent
+
+        $Lightning.use("c:LwcVfPassExampleAura", () => {
+            $Lightning.createComponent(
+                "c:LwcVfPassExample",
+                {
+                    'stdin': stdin,
+                },
+                "containerForLWC",
+                function(cmp) {
+                    console.log('component created');
+                    handleListening()
+                }
+            )
+        })
+        
+        function handleListening(){
+
+            const element = document.querySelector('c-lwc-vf-pass-example')
+            
+            element.addEventListener('stdout', event => {
+                const { stdout } = event.detail;
+                console.log('VF has stdout: ', stdout)
+                const element = document.querySelector('.stdout')
+                element.textContent = stdout
+            })
+        }
+    </script>
+
+</apex:page>
