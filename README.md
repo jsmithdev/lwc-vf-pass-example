@@ -1,4 +1,4 @@
-# lwc-flow-example
+# lwc-vf-pass-example
 
 Example of lwc in a VF page (passing in values, giving values back)
 
